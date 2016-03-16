@@ -1,0 +1,37 @@
+{
+	"name": "devture/zengin-generator",
+	"type": "library",
+	"description": "FB (Firm-Banking) Zengin format (http://www.sekishinkin.co.jp/web_fb/zengin.html) file generator (Japanese bank-transfer file)",
+	"keywords": [
+		"zengin",
+		"generation",
+		"bank",
+		"transfer",
+		"japanese",
+		"japan",
+		"exchange",
+		"format",
+		"firm-banking",
+		"fb"
+	],
+	"homepage": "https://github.com/devture/zengin-generator",
+	"license": "BSD",
+	"authors": [
+		{
+			"name": "Slavi Pantaleev",
+			"email": "s.pantaleev@gmail.com"
+		}
+	],
+	"require": {
+		"devture/form": "^1.0"
+	},
+	"require-dev": {
+                "phpunit/phpunit": "*",
+                "symfony/var-dumper": "*"
+	},
+	"autoload": {
+		"psr-0": {
+			"Devture\\ZenginGenerator\\": "src/"
+		}
+	}
+}
