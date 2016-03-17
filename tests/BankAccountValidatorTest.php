@@ -64,6 +64,13 @@ class BankAccountValidatorTest extends \PHPUnit_Framework_TestCase {
 		$this->assertTrue(count($violations) === 1);
 		$this->assertTrue(count($violations->get('bankName')) === 1);
 
+		//Half-width Katakana
+		$this->account->setBankName('ﾐﾂｲｽﾐﾄﾓ');
+		$this->assertSame('ﾐﾂｲｽﾐﾄﾓ', $this->account->getBankName());
+		$violations = Validator::validateBankAccount($this->account, null);
+		$this->assertTrue(count($violations) === 1);
+		$this->assertTrue(count($violations->get('bankName')) === 1);
+
 		//Kanji
 		$this->account->setBankName('銀行');
 		$this->assertSame('銀行', $this->account->getBankName());
@@ -122,6 +129,13 @@ class BankAccountValidatorTest extends \PHPUnit_Framework_TestCase {
 	        $this->assertTrue(count($violations) === 1);
 	        $this->assertTrue(count($violations->get('branchName')) === 1);
 
+		//Half-width Katakana
+		$this->account->setBranchName('ﾐﾂｲｽﾐﾄﾓ');
+		$this->assertSame('ﾐﾂｲｽﾐﾄﾓ', $this->account->getBranchName());
+		$violations = Validator::validateBankAccount($this->account, null);
+		$this->assertTrue(count($violations) === 1);
+		$this->assertTrue(count($violations->get('branchName')) === 1);
+
 	        //Kanji
 	        $this->account->setBranchName('銀行');
 	        $this->assertSame('銀行', $this->account->getBranchName());
@@ -177,6 +191,13 @@ class BankAccountValidatorTest extends \PHPUnit_Framework_TestCase {
 	        $violations = Validator::validateBankAccount($this->account, null);
 	        $this->assertTrue(count($violations) === 1);
 	        $this->assertTrue(count($violations->get('holderName')) === 1);
+
+		//Half-width Katakana
+		$this->account->setHolderName('ﾐﾂｲｽﾐﾄﾓ');
+		$this->assertSame('ﾐﾂｲｽﾐﾄﾓ', $this->account->getHolderName());
+		$violations = Validator::validateBankAccount($this->account, null);
+		$this->assertTrue(count($violations) === 1);
+		$this->assertTrue(count($violations->get('holderName')) === 1);
 
 	        //Kanji
 	        $this->account->setHolderName('宮城');

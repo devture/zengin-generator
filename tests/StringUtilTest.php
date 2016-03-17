@@ -50,6 +50,8 @@ class StringUtilTest extends \PHPUnit_Framework_TestCase {
 		$this->assertFalse(StringUtil::isStringKatakanaAndAlphanumeric('漢字'));
 		$this->assertFalse(StringUtil::isStringKatakanaAndAlphanumeric('１２３'));
 		$this->assertFalse(StringUtil::isStringKatakanaAndAlphanumeric('カタカナ　And　English')); //Japanese space
+		$this->assertFalse(StringUtil::isStringKatakanaAndAlphanumeric('ｶﾀｶﾅ')); //half-width
+		$this->assertFalse(StringUtil::isStringKatakanaAndAlphanumeric('カタｶﾅ')); //mixed: full-width + half-width
 	}
 
 }

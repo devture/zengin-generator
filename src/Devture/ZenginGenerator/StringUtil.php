@@ -43,6 +43,12 @@ class StringUtil {
         }
 
         static public function isStringKatakanaAndAlphanumeric($string) {
+                $stringFullWidthKatakana = \mb_convert_kana($string, 'K');
+                if ($stringFullWidthKatakana !== $string) {
+                        //\p{Katakana} below matches all sorts of Katakana.
+                        //Thus, we should reject half-width early.
+                        return false;
+                }
 		return (bool) preg_match('/^[[:ascii:] \p{Katakana}ー\.]*$/u', $string);
         }
 
