@@ -74,7 +74,7 @@ class Validator {
 		}
 
                 if (!$entity->getHolderName()) {
-                        //Can be blank.
+                        $violations->add('holderName', 'Holder name cannot be blank.');
                 } else {
                         $length = StringUtil::strlen($entity->getHolderName());
 

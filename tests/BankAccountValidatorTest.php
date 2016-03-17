@@ -172,18 +172,6 @@ class BankAccountValidatorTest extends \PHPUnit_Framework_TestCase {
 	        $this->assertTrue(count($violations->get('branchName')) === 1);
 	}
 
-	public function testValidationPassesOnEmptyHolderName() {
-	        $this->account->setHolderName('');
-	        $this->assertSame('', $this->account->getHolderName());
-	        $violations = Validator::validateBankAccount($this->account, null);
-	        $this->assertTrue(count($violations) === 0);
-
-	        $this->account->setHolderName(null);
-	        $this->assertSame(null, $this->account->getHolderName());
-	        $violations = Validator::validateBankAccount($this->account, null);
-	        $this->assertTrue(count($violations) === 0);
-	}
-
 	public function testValidationFailsOnNonKatakanaHolderName() {
 	        //Hiragana
 	        $this->account->setHolderName('すらび');
@@ -224,7 +212,7 @@ class BankAccountValidatorTest extends \PHPUnit_Framework_TestCase {
 	        $this->assertTrue(count($violations) === 0);
 	}
 
-	public function testValidationFailsOnLongNames() {
+	public function testValidationFailsOnLongHolderNames() {
 	        $this->account->setHolderName(str_repeat('T', 30));
 	        $violations = Validator::validateBankAccount($this->account, Validator::BANK_ACCOUNT_ROLE_RECEIVER);
 	        $this->assertTrue(count($violations) === 0);
@@ -240,6 +228,20 @@ class BankAccountValidatorTest extends \PHPUnit_Framework_TestCase {
 
 	        $this->account->setHolderName(str_repeat('T', 41));
 	        $violations = Validator::validateBankAccount($this->account, Validator::BANK_ACCOUNT_ROLE_SENDER);
+	        $this->assertTrue(count($violations) === 1);
+	        $this->assertTrue(count($violations->get('holderName')) === 1);
+	}
+
+	public function testValidationFailsOnEmptyHolderName() {
+	        $this->account->setHolderName('');
+		$this->assertSame('', $this->account->getHolderName());
+	        $violations = Validator::validateBankAccount($this->account, null);
+	        $this->assertTrue(count($violations) === 1);
+	        $this->assertTrue(count($violations->get('holderName')) === 1);
+
+	        $this->account->setHolderName(null);
+		$this->assertSame(null, $this->account->getHolderName());
+	        $violations = Validator::validateBankAccount($this->account, null);
 	        $this->assertTrue(count($violations) === 1);
 	        $this->assertTrue(count($violations->get('holderName')) === 1);
 	}
