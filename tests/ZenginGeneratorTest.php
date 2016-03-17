@@ -38,8 +38,12 @@ class ZenginGeneratorTest extends \PHPUnit_Framework_TestCase {
 		$zenginContentShiftJis = $this->generator->generateNoValidation($transferRequest);
 		$this->validateZenginContent($zenginContentShiftJis, 'results/empty.txt');
 
-		$this->setExpectedException('\\Devture\\ZenginGenerator\\Exception\\PrecheckGenerationException');
-		$this->generator->generate($transferRequest);
+		try {
+			$this->generator->generate($transferRequest);
+			$this->fail('Expected exception, but succeeded.');
+		} catch (\Devture\ZenginGenerator\Exception\PrecheckGenerationException $e) {
+			$this->assertInstanceOf('\\Devture\\Component\\Form\\Validator\\ViolationsList', $e->getViolations());
+		}
 	}
 
 	public function testSingleTransaction() {

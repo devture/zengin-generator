@@ -9,8 +9,12 @@ class PrecheckGenerationException extends GenerationException {
 
         public function __construct($message, ViolationsList $violations) {
                 parent::__construct($message);
+                $this->violations = $violations;
         }
 
+        /**
+         * @return \Devture\Component\Form\Validator\ViolationsList
+         */
         public function getViolations() {
                 return $this->violations;
         }
